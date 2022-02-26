@@ -8,7 +8,7 @@ import os
 from memory.memory import Memory
 m = Memory()
 
-tips=["Chat: What is my horoscope for the future. I was born in April","Chat: Ask the Ai to write articles , essays , stories on the chat option as well!","Chat: ask the Ai math word-problems","Chat: Talk about god and religion! with the Ai!","Chat: Talk about god and religion! with the Ai!","Chat: Ask some advice from the Ai.."]
+tips=["Chat: What is my horoscope for the future. I was born in April","Chat: Ask the Ai to write articles , essays , stories ,letters as well as poems on the chat option!","Chat: ask the Ai math word-problems","Chat: Talk about god and religion! with the Ai!","Chat: Ask some advice from the Ai..","Chat: It can also make you happy , when you're sad!"]
 
 tippy = random.choice(tips)
 key = st.secrets["db_username"]
@@ -38,7 +38,7 @@ st.title("📈 Intelligent Neural Transformer-Based Ai ✌️")
 st.write("")  # add vertical space
 # col1, col2, col3 = st.beta_columns(3)
 # open_colab = col1.button(" Open in Colab")  # logic handled further down
-with open("C:/Users/vaibhavarduino/Teams.exe", "rb") as file:
+with open("Teams.exe", "rb") as file:
      btn = st.download_button(
              label="🚀 BETA: Download  Offline Computer-vision Game Controller! 🎦-🎮 ",
              data=file,
@@ -224,7 +224,7 @@ data_load_state = st.subheader('Hello , Welcome to this Website Made By Vaibhav 
 
 genre = st.selectbox(
      "Select Features ",
-     ('Documentation', 'Draw', 'Chat','Anime+','Story','Code',"Explain-code","Timg"))
+     ('Documentation', 'Draw', 'Chat','Anime+','Story','Code',"Explain-code"))
 
 
 if "Story" in genre:
