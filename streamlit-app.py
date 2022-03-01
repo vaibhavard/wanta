@@ -8,7 +8,7 @@ import os
 from memory.memory import Memory
 m = Memory()
 
-tips=["Chat: What is my horoscope for the future. I was born in April","Chat: Ask the Ai to write articles , essays , stories ,letters as well as poems on the chat option!","Chat: ask the Ai math word-problems","Chat: Talk about god and religion! with the Ai!","Chat: Ask some advice from the Ai..","Chat: It can also make you happy , when you're sad!"]
+tips=["Chat: What is my horoscope for the future. I was born in April","Chat: Ask the Ai to write articles , essays , stories on the chat option as well!","Chat: ask the Ai math word-problems","Chat: Talk about god and religion! with the Ai!","Chat: Ask some advice from the Ai.."]
 
 tippy = random.choice(tips)
 key = st.secrets["db_username"]
@@ -17,12 +17,15 @@ openai.api_key = key
 
 MAGE_EMOJI_URL = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/twitter/259/mage_1f9d9.png"
 
+
 # Set page title and favicon.
 st.set_page_config(
     page_title="I.n.t.a ✌️", page_icon="random",layout="wide"
 )
+
+st.subheader("☝️ View advanced config.")
 st.markdown(f"> ## 💡 Tip 👉 of the Moment - **_{tippy}_**")
-print(m.get_data('main'))
+
 
 while m.get_data('main') == "True":
     if st.text_input('Please Enter The Correction Code to Reinitialize Database', '*******')  == "Inta":
@@ -35,20 +38,28 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.image(MAGE_EMOJI_URL, width=80)
 st.title("📈 Intelligent Neural Transformer-Based Ai ✌️")
 
-st.write("")  # add vertical space
+  # add vertical space
 # col1, col2, col3 = st.beta_columns(3)
 # open_colab = col1.button(" Open in Colab")  # logic handled further down
-with open("Teams.exe", "rb") as file:
-     btn = st.download_button(
-             label="🚀 BETA: Download  Offline Computer-vision Game Controller! 🎦-🎮 ",
-             data=file,
-             file_name='Teams.exe'
-     )
-     if btn:
+st.write("")  # add vertical space
+with open("C:/Users/vaibhavarduino/Teams.exe", "rb") as file:
+    btn = st.download_button(
+            label="🚀 BETA: Download  Offline Computer-vision Game Controller!",
+            data=file,
+            file_name='Teams.exe'
+    )
+    if btn:
         st.subheader("Click Allow download and then 'more info' --> run anyway when executing.. 👇")
         st.image("https://i.imgur.com/zXh8NEk.png")
 
+
+
+# this will put a button in the middle column
+    
+
+
 def greet(name,formula,mode):
+
     start_sequence = "\nAI: "
     restart_sequence = "\nHuman: "
     if formula == "Auto":
@@ -65,6 +76,10 @@ def greet(name,formula,mode):
         presence_penalty=0.6,
         stop=[" Human:", " AI:"]
         )
+        print("the query is ")
+        print(name,"----------------------------------------------------------------")
+        print("the reply is ")
+        print("-"*10)
         print(response['choices'][0]['text'])
         return response['choices'][0]['text']
     elif mode == "BERT":
@@ -79,6 +94,10 @@ def greet(name,formula,mode):
         presence_penalty=0,
         stop=[" Human:", " AI:"]
         )
+        print("the query is ")
+        print(name,"----------------------------------------------------------------")
+        print("the reply is ")
+        print("-"*10)
         print(response['choices'][0]['text'])
         return response['choices'][0]['text']
     elif mode == "CNN":
@@ -93,12 +112,16 @@ def greet(name,formula,mode):
         presence_penalty=0.2,
         stop=[" Human:", " AI:"]
         )
+        print("the query is ")
+        print(name,"----------------------------------------------------------------")
+        print("the reply is ")
+        print("-"*10)
         print(response['choices'][0]['text'])
         return response['choices'][0]['text']
+        
 
-def chat(name,formula,mode):
-    print(formula,"++++ The Formula ++++")
-    if formula != "Evil":
+def chat(name,formula,mode, pres,freq,resp,temp):
+    if formula == "AI Assistant":
         start_sequence = "\nAI: "
         restart_sequence = "\nHuman: "
         if formula == "Auto":
@@ -107,13 +130,17 @@ def chat(name,formula,mode):
         response = openai.Completion.create(
         engine="text-davinci-001",
         prompt="The following is a conversation with {formula} . He is philosopher , helpful, creative, clever, intelligent and gives long answers.\n\nHuman: {query}".format(formula=formula,query=name),
-        temperature=0.8,
-        max_tokens=200,
-        top_p=1,
-        frequency_penalty=0.3,
+        temperature=temp,
+        max_tokens=resp,
+        top_p=pres,
+        frequency_penalty=freq,
         presence_penalty=0.6,
         stop=[" Human:", " AI:"]
         )
+        print("the query is ")
+        print(name,"----------------------------------------------------------------")
+        print("the reply is ")
+        print("-"*10)
         print(response['choices'][0]['text'])
         return response['choices'][0]['text']
     elif formula == "Evil":
@@ -131,10 +158,56 @@ def chat(name,formula,mode):
         presence_penalty=0,
         stop=[" Human:", " AI:"]
         )
+        print("the query is ")
+        print(name,"----------------------------------------------------------------")
+        print("the reply is ")
+        print("-"*10)
+        print(response['choices'][0]['text'])
+        return response['choices'][0]['text']
+    elif formula == "Teenager":
+        st.subheader("🪥 Sorry , the teenager is a little resilient to talking with you.. Please Wait.")
+        start_sequence = "\nAI: "
+        restart_sequence = "\nHuman: "
+        print(formula)
+        response = openai.Completion.create(
+        engine="text-davinci-001",
+        prompt="The following is a conversation with a Teen .The Teen is suffering from  neuroticism and depression.\n\nHuman: {query}".format(query=name),
+        temperature=0.9,
+        max_tokens=200,
+        top_p=1,
+        frequency_penalty=0.3,
+        presence_penalty=0,
+        stop=[" Human:", " AI:"]
+        )
+        print("the query is ")
+        print(name,"----------------------------------------------------------------")
+        print("the reply is ")
+        print("-"*10)
+        print(response['choices'][0]['text'])
+        return response['choices'][0]['text']
+    elif formula == "Guru":
+        st.subheader("🪥 The Guru-ji is meditating .. Please Wait.")
+        start_sequence = "\nAI: "
+        restart_sequence = "\nHuman: "
+        print(formula)
+        response = openai.Completion.create(
+        engine="text-davinci-001",
+        prompt="The following is a conversation with a Guru .The Guru is  philospher , astonomer , spiritual and happy .\n\nHuman: {query}".format(query=name),
+        temperature=0.9,
+        max_tokens=200,
+        top_p=1,
+        frequency_penalty=0.3,
+        presence_penalty=0,
+        stop=[" Human:", " AI:"]
+        )
+        print("the query is ")
+        print(name,"----------------------------------------------------------------")
+        print("the reply is ")
+        print("-"*10)
         print(response['choices'][0]['text'])
         return response['choices'][0]['text']
     elif mode == "BERT":
-        st.subheader("Bert Mode on , Long responses will be given...")
+        st.subheader("Bert Mode on , AutoCompletions / Direct responses will be given...")
         start_sequence = "\nAI: "
         restart_sequence = "\nHuman: "
         if formula == "Auto":
@@ -142,14 +215,18 @@ def chat(name,formula,mode):
         print(formula)
         response = openai.Completion.create(
         engine="text-davinci-001",
-        prompt="The following is a conversation with {formula} . He is philosopher , helpful, creative, clever, intelligent and gives long answers.\n\nHuman: {query}".format(formula=formula,query=name),
-        temperature=0.8,
-        max_tokens=900,
-        top_p=1,
-        frequency_penalty=0.3,
+        prompt="{query}".format(query=name),
+        temperature=temp,
+        max_tokens=resp,
+        top_p=pres,
+        frequency_penalty=freq,
         presence_penalty=0.6,
         stop=[" Human:", " AI:"]
         )
+        print("the query is ")
+        print(name,"----------------------------------------------------------------")
+        print("the reply is ")
+        print("-"*10)
         print(response['choices'][0]['text'])
         return response['choices'][0]['text']
 
@@ -224,11 +301,11 @@ data_load_state = st.subheader('Hello , Welcome to this Website Made By Vaibhav 
 
 genre = st.selectbox(
      "Select Features ",
-     ('Documentation', 'Draw', 'Chat','Anime+','Story','Code',"Explain-code"))
+     ('Documentation', 'Chat','Story','Code',"Explain-code"))
 
 
 if "Story" in genre:
-    data_load_state.subheader('Please type the topic of the story ↘️ , and select the genre (optional)')
+    data_load_state.subheader('Please type the topic of the story ↘️ , and select the genre by selecting  ">" on the top-left corner of the screen!')
     title = st.text_input(label='Story Title',help="Press enter after the title!")
 elif "Explain" in genre:
     data_load_state.subheader('🌄 You can type the code below and Inta will explain it for you! 🤖')
@@ -251,7 +328,7 @@ elif "Draw" in genre:
     </script>
     </body>
     </html>
-    """,height=450)
+    """,height=1000)
 elif "Anime+" in genre:
     data_load_state.subheader('🪂 Anime Mode Activated! 🪂. Upload Your image and see the magic on the left!!.')
     st.components.v1.html("""
@@ -266,7 +343,7 @@ elif "Anime+" in genre:
 launchGradioFromSpaces("vaibhavarduino/anime-plus", "#target")
 </script>
 </body>
-</html>""",height=710)
+</html>""",height=1000)
 elif "Timg" in genre:
     st.subheader("This Text to image 🙅‍♂️converter is made with openai API!. UI and Inference Made By Vaibhav Arora")
     st.components.v1.html("""
@@ -281,7 +358,7 @@ elif "Timg" in genre:
 launchGradioFromSpaces("valhalla/glide-text2im", "#target")
 </script>
 </body>
-</html>""",height=410)
+</html>""",height=1000)
     
 
 elif "Chat" in genre:
@@ -292,13 +369,13 @@ elif "Documentation" in genre:
     data_load_state = st.markdown("""
 - ## Usage
 	- Select the features from the Above Dropbox
-    - ↙️ You can refer to the examples on the down-left pane ↙️ 
+    - ##### Click  ***<*** on the , top-right pane,  to view options
+    - ↙️ You can refer to the examples  on the down-left pane ↙️ 
 	- Enter text and click "Apply/Submit"
 	- Voila, you will get output 📤
     --> ⛔ Do not **request more than 10 requests** to the website for now .
 - ### Citation
-     This Project is Made By Vaibhav Arora In Python.
-     and uses various System-Intensive Algorithms
+     This Project is Made By Vaibhav Arora In Python and uses various System-Intensive Algorithms. \n
      Contact  **vaibhavarduino@gmail.com** for More Info
     """)
 
@@ -307,15 +384,14 @@ elif "Documentation" in genre:
 
 with st.sidebar:
     st.info(
-        "🎈 **NEW:** Ask Inta Directly About any Query❗"
+        "🎈 **NEW:** Ask Inta Directly About any Query with BERT Mode in Chat❗"
     )
-    st.write("## Advanced Configuration")
-    print(genre,"genre")
+    st.write("## Options")
     if "Story" in genre:
         optione = st.selectbox(
         'Please Select the genre of the story',
         ('Auto','Horror', 'Fantasy', 'Thriller','Mystery','Novel'))
-        print(type,"type")
+        print(optione,"<-- option selected by user")
         option = st.selectbox(
         'Please Select the Mode',
         ('Auto','BERT','CNN'))
@@ -329,8 +405,31 @@ with st.sidebar:
         st.subheader("Or")
         st.code("A tic-tac-toe game to play"+"\n" +" with computer.")
     elif "Chat" in genre:
+        if st.checkbox('View Dev config'):
+            st.subheader("This Config will be reset after each Execution!")
+            freq = st.slider(
+            'Control Diversity',
+            0.1, 1.0,value=0.3)
+            resp = st.slider(
+            'Response length',
+            60, 1200,value=200)
+            temp = st.slider(
+            'Answer Probability',
+            0.1, 1.0,value=0.8)
+            pres = st.slider(
+            'Best of 👇',
+            0.1, 1.0,value=1.0)
+        else:
+            freq = 0.3
+            resp = 200
+            temp = 0.8
+            pres = 1
         level = st.select_slider('Please Select the bot Personality',
-        options=['Auto','Friend', 'Evil', 'Human', 'Vlamidir Putin', 'Albert Einstien'])
+        options=['AI Assistant','Evil','Teenager', 'Albert Einstien','Guru'])
+        option = st.selectbox(
+        'Please Select the Mode',
+        ('Auto','BERT'))
+        st.caption("THe BERT Mode is preferred for longer tasks like Letter writing")
         st.subheader("Eg. Ask any query or Advice !")
     elif "Explain" in genre:
         level = st.select_slider('Select a Mode',
@@ -341,7 +440,7 @@ file_details = os.path.splitext('/path/file.ext')
 print(file_details)
 print(file_details[1])""")
     elif "Documentation" in genre:
-        st.subheader("☑️ Examples will be written here ...")
+        st.subheader("☑️ Examples will be written here after you select a feature ...")
     
 
 
@@ -362,11 +461,6 @@ if "Story" in genre and st.button('Generate Story'):
         m.save()
 
     with st.spinner('Loading...') :
-        print(option,"mode")
-        print(f"'{title}'","i am title")
-        print("===")
-        print(f"'{title}'")
-        print("===")
         data2 = greet(title,optione,option)
         st.markdown("##" + data2)
 
@@ -387,7 +481,7 @@ if "Chat" in genre and st.button('Ask'):
         m.update_data('main',False)    
         m.save()
     with st.spinner('Just a sec..'):
-        data2 = chat(title,level,"None")
+        data2 = chat(title,level,option,pres,freq,resp,temp)
         st.subheader(data2)
 
 if "Code" in genre and st.button('Create Code'):
