@@ -42,7 +42,7 @@ st.title("📈 Intelligent Neural Transformer-Based Ai ✌️")
 # col1, col2, col3 = st.beta_columns(3)
 # open_colab = col1.button(" Open in Colab")  # logic handled further down
 st.write("")  # add vertical space
-with open("C:/Users/vaibhavarduino/Teams.exe", "rb") as file:
+with open("Teams.exe", "rb") as file:
     btn = st.download_button(
             label="🚀 BETA: Download  Offline Computer-vision Game Controller!",
             data=file,
