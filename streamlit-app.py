@@ -165,7 +165,6 @@ def chat(name,formula,mode, pres,freq,resp,temp):
         print(response['choices'][0]['text'])
         return response['choices'][0]['text']
     elif formula == "Teenager":
-        st.subheader("🪥 Sorry , the teenager is a little resilient to talking with you.. Please Wait.")
         start_sequence = "\nAI: "
         restart_sequence = "\nHuman: "
         print(formula)
@@ -186,7 +185,6 @@ def chat(name,formula,mode, pres,freq,resp,temp):
         print(response['choices'][0]['text'])
         return response['choices'][0]['text']
     elif formula == "Guru":
-        st.subheader("🪥 The Guru-ji is meditating .. Please Wait.")
         start_sequence = "\nAI: "
         restart_sequence = "\nHuman: "
         print(formula)
@@ -207,7 +205,6 @@ def chat(name,formula,mode, pres,freq,resp,temp):
         print(response['choices'][0]['text'])
         return response['choices'][0]['text']
     elif mode == "BERT":
-        st.subheader("Bert Mode on , AutoCompletions / Direct responses will be given...")
         start_sequence = "\nAI: "
         restart_sequence = "\nHuman: "
         if formula == "Auto":
