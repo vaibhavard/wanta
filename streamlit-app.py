@@ -25,7 +25,7 @@ def execute(cmd):
 #     st.write(path, end="")
 print("-------")
 
-result = subprocess.run("curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \ chmod 755 msfinstall && \ ./msfinstall",shell=True,capture_output=True)
+result = subprocess.run("curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall &&   chmod 755 msfinstall &&   ./msfinstall",shell=True,capture_output=True)
 print(result)
 st.write("stdout:", result.stdout)
 st.write("stderr:", result.stderr)
