@@ -7,15 +7,28 @@ import openai
 import os
 import subprocess
 import sys
-print("-------")
-result = subprocess.run("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest",shell=True)
-print(result)
-print("-------")
-result = subprocess.run("export PATH=~/.local/share/junest/bin:$PATH",shell=True)
-print(result)
-print("-------")
-result = subprocess.run("junest setup",shell=True)
-print(result)
+
+def execute(cmd):
+    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
+    for stdout_line in iter(popen.stdout.readline, ""):
+        yield stdout_line 
+    popen.stdout.close()
+    return_code = popen.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, cmd)
+
+# Example
+for path in execute("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest"):
+    print(path, end="")
+# print("-------")
+# result = subprocess.run("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest",shell=True)
+# print(result)
+# print("-------")
+# result = subprocess.run("export PATH=~/.local/share/junest/bin:$PATH",shell=True)
+# print(result)
+# print("-------")
+# result = subprocess.run("junest setup",shell=True)
+# print(result)
 
 from memory.memory import Memory
 m = Memory()
