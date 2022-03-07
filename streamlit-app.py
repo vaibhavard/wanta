@@ -307,7 +307,7 @@ genre = st.selectbox(
 
 if "Story" in genre:
     data_load_state.subheader('Please type the topic of the story ↘️ , and select the genre by selecting  ">" on the top-left corner of the screen!')
-    title = st.text_input(label='Story Title',help="Press enter after the title!",autocomplete="hello")
+    title = st.text_area(label='Story Title',help="Press enter after the title!",placeholder="hello")
 elif "Explain" in genre:
     data_load_state.subheader('🌄 You can type the code below and Inta will explain it for you! 🤖')
     createc = st.text_area(label='Code Description',help="Click Create Code after the Description!")
