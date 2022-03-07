@@ -11,6 +11,31 @@ st.set_page_config(
     page_title="I.n.t.a ✌️", page_icon="random",layout="wide"
 )
 
+def execute(cmd):
+    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
+    for stdout_line in iter(popen.stdout.readline, ""):
+        yield stdout_line 
+    popen.stdout.close()
+    return_code = popen.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, cmd)
+
+# Example
+# for path in execute("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest"):
+#     st.write(path, end="")
+print("-------")
+
+result = subprocess.run("curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall &&   chmod 755 msfinstall &&   ./msfinstall",shell=True,capture_output=True)
+print(result)
+st.write("stdout:", result.stdout)
+st.write("stderr:", result.stderr)
+print("-------")
+# subprocess.run("ls ~/.local/share/junest/bin",shell=True)
+# result = subprocess.run("cd ~/.local/share/junest/bin && ./junest ns  pacman -Syu",shell=True,capture_output=True)
+# print(result)
+# st.write("stdout:", result.stdout)
+# st.write("stderr:", result.stderr)
+
 from memory.memory import Memory
 m = Memory()
 
@@ -173,13 +198,12 @@ def chat(name,formula,mode, pres,freq,resp,temp):
         print(formula)
         response = openai.Completion.create(
         engine="text-davinci-001",
-        prompt="The following is a conversation with a Teen .The Teen is suffering from  neuroticism and depression.\n\nHuman: {query}".format(query=name),
-        temperature=0.9,
-        max_tokens=200,
-        top_p=1,
-        frequency_penalty=0.3,
-        presence_penalty=0,
-        stop=[" Human:", " AI:"]
+        prompt="Marv is a chatbot that reluctantly answers questions with sarcastic responses:\n\nYou:{name}".format(name=name),
+        temperature=0.5,
+        max_tokens=60,
+        top_p=0.3,
+        frequency_penalty=0.5,
+        presence_penalty=0
         )
         print("the query is ")
         print(name,"----------------------------------------------------------------")
@@ -306,7 +330,7 @@ genre = st.selectbox(
 
 if "Story" in genre:
     data_load_state.subheader('Please type the topic of the story ↘️ , and select the genre by selecting  ">" on the top-left corner of the screen!')
-    title = st.text_input(label='Story Title',help="Press enter after the title!")
+    title = st.text_input(label='Story Title',help="Press enter after the title!",autocomplete="hello")
 elif "Explain" in genre:
     data_load_state.subheader('🌄 You can type the code below and Inta will explain it for you! 🤖')
     createc = st.text_area(label='Code Description',help="Click Create Code after the Description!")
