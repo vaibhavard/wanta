@@ -19,7 +19,7 @@ def execute(cmd):
 
 # Example
 for path in execute("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest"):
-    print(path, end="")
+    st.write(path, end="")
 # print("-------")
 # result = subprocess.run("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest",shell=True)
 # print(result)
