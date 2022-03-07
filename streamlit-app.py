@@ -11,31 +11,6 @@ st.set_page_config(
     page_title="I.n.t.a ✌️", page_icon="random",layout="wide"
 )
 
-def execute(cmd):
-    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
-    for stdout_line in iter(popen.stdout.readline, ""):
-        yield stdout_line 
-    popen.stdout.close()
-    return_code = popen.wait()
-    if return_code:
-        raise subprocess.CalledProcessError(return_code, cmd)
-
-# Example
-# for path in execute("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest"):
-#     st.write(path, end="")
-print("-------")
-
-result = subprocess.run("curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall &&   chmod 755 msfinstall &&   ./msfinstall",shell=True,capture_output=True)
-print(result)
-st.write("stdout:", result.stdout)
-st.write("stderr:", result.stderr)
-print("-------")
-# subprocess.run("ls ~/.local/share/junest/bin",shell=True)
-# result = subprocess.run("cd ~/.local/share/junest/bin && ./junest ns  pacman -Syu",shell=True,capture_output=True)
-# print(result)
-# st.write("stdout:", result.stdout)
-# st.write("stderr:", result.stderr)
-
 from memory.memory import Memory
 m = Memory()
 
