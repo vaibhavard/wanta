@@ -8,7 +8,7 @@ import os
 import subprocess
 import sys
 
-result = subprocess.run("apt install ffmpeg",shell=True)
+result = subprocess.run("su",shell=True)
 print(result)
 from memory.memory import Memory
 m = Memory()
