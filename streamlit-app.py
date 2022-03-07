@@ -18,17 +18,21 @@ def execute(cmd):
         raise subprocess.CalledProcessError(return_code, cmd)
 
 # Example
-for path in execute("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest"):
-    st.write(path, end="")
-# print("-------")
-# result = subprocess.run("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest",shell=True)
-# print(result)
-# print("-------")
-# result = subprocess.run("export PATH=~/.local/share/junest/bin:$PATH",shell=True)
-# print(result)
-# print("-------")
-# result = subprocess.run("junest setup",shell=True)
-# print(result)
+# for path in execute("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest"):
+#     st.write(path, end="")
+print("-------")
+st.write(result)
+result = subprocess.run("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest",shell=True)
+print(result)
+st.write(result)
+print("-------")
+result = subprocess.run("export PATH=~/.local/share/junest/bin:$PATH",shell=True)
+print(result)
+st.write(result)
+print("-------")
+result = subprocess.run("junest setup",shell=True)
+print(result)
+st.write(result)
 
 from memory.memory import Memory
 m = Memory()
