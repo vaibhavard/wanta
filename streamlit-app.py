@@ -8,7 +8,7 @@ import os
 import subprocess
 import sys
 
-result = subprocess.run("apt-get update")
+result = subprocess.run("apt-get update",shell=True)
 print(result)
 from memory.memory import Memory
 m = Memory()
