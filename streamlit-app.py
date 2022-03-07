@@ -7,9 +7,16 @@ import openai
 import os
 import subprocess
 import sys
-
-result = subprocess.run("su",shell=True)
+print("-------")
+result = subprocess.run("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest",shell=True)
 print(result)
+print("-------")
+result = subprocess.run("export PATH=~/.local/share/junest/bin:$PATH",shell=True)
+print(result)
+print("-------")
+result = subprocess.run("junest setup",shell=True)
+print(result)
+
 from memory.memory import Memory
 m = Memory()
 
