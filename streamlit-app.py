@@ -7,6 +7,9 @@ import openai
 import os
 import subprocess
 import sys
+st.set_page_config(
+    page_title="I.n.t.a ✌️", page_icon="random",layout="wide"
+)
 
 def execute(cmd):
     popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
@@ -48,9 +51,6 @@ MAGE_EMOJI_URL = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thu
 
 
 # Set page title and favicon.
-st.set_page_config(
-    page_title="I.n.t.a ✌️", page_icon="random",layout="wide"
-)
 
 st.subheader("☝️ View advanced config.")
 st.markdown(f"> ## 💡 Tip 👉 of the Moment - **_{tippy}_**")
