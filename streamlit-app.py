@@ -5,6 +5,11 @@ import pandas as pd
 import numpy as np
 import openai
 import os
+import subprocess
+import sys
+
+result = subprocess.run("apt-get update")
+print(result)
 from memory.memory import Memory
 m = Memory()
 
