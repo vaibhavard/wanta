@@ -21,7 +21,7 @@ def execute(cmd):
 # for path in execute("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest"):
 #     st.write(path, end="")
 print("-------")
-st.write(result)
+
 result = subprocess.run("git clone https://github.com/fsquillace/junest.git ~/.local/share/junest",shell=True)
 print(result)
 st.write(result)
