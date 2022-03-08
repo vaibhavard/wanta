@@ -32,7 +32,7 @@ MAGE_EMOJI_URL = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thu
 
 
 # Set page title and favicon.
-story = ["Create an outline for an essay about Walt Disney and his contributions to animation:","Write a horror story on an old man","Write an article about happiness","Write a informal letter to your teacher wishing her happy birthday","Create a list of 8 questions for my interview with a science fiction author:","Brainstorm some ideas combining VR and fitness:","What are 5 key points I should know when studying Ancient Rome?","Write a quote on loneliness"]
+story = ["Create an outline for an essay about Walt Disney and his contributions to animation:","Write a horror story on an old man","Write an article about happiness","Write a informal letter to your teacher wishing her happy birthday","Create a list of 8 questions for my interview with a science fiction author:","Brainstorm some ideas combining VR and fitness:","Write a poem by agatha christie","What are 5 key points I should know when studying Ancient Rome?","Write a quote on loneliness"]
 st.markdown(f"> ## 💡 Tip 👉 of the Moment - **_{tippy}_**")
 
 
@@ -426,7 +426,7 @@ with st.sidebar:
         'Please Select the Mode',
         ('Auto','LONG','USEFUL','SENSE','SHORT'))
         st.subheader("Example -")
-        st.write(value=random.choice(story))
+        st.write(random.choice(story))
     elif "Code"  in genre:
         level = st.select_slider('Coming Soon...',
         options=['Auto','AI'])
