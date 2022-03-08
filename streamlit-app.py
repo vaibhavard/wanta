@@ -11,7 +11,14 @@ st.set_page_config(
     page_title="I.n.t.a ✌️", page_icon="random",layout="wide"
 )
 
-
+def execute(cmd):
+    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
+    for stdout_line in iter(popen.stdout.readline, ""):
+        yield stdout_line 
+    popen.stdout.close()
+    return_code = popen.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, cmd)
 
 from memory.memory import Memory
 m = Memory()
@@ -21,14 +28,11 @@ tips=["Chat: What is my horoscope for the future. I was born in April","Chat: As
 tippy = random.choice(tips)
 key = st.secrets["db_username"]
 openai.api_key = key
-
-
 MAGE_EMOJI_URL = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/twitter/259/mage_1f9d9.png"
 
 
 # Set page title and favicon.
-
-st.subheader("☝️ View advanced config.")
+story = ["Create an outline for an essay about Walt Disney and his contributions to animation:","Write a horror story on an old man","Write an article about happiness","Write a informal letter to your teacher wishing her happy birthday","Create a list of 8 questions for my interview with a science fiction author:","Brainstorm some ideas combining VR and fitness:","What are 5 key points I should know when studying Ancient Rome?","Write a quote on loneliness"]
 st.markdown(f"> ## 💡 Tip 👉 of the Moment - **_{tippy}_**")
 
 
@@ -73,7 +77,7 @@ def greet(name,formula,mode):
         print(mode)
         response = openai.Completion.create(
         engine="text-davinci-001",
-        prompt="Write an Interesting {formula} Story on {query}".format(formula=formula,query=name),
+        prompt="{query}".format(query=name),
         temperature=0.8,
         max_tokens=1200,
         top_p=1,
@@ -87,13 +91,13 @@ def greet(name,formula,mode):
         print("-"*10)
         print(response['choices'][0]['text'])
         return response['choices'][0]['text']
-    elif mode == "BERT":
+    elif mode == "LONG":
         print(mode)
         response = openai.Completion.create(
         engine="text-davinci-001",
-        prompt="Write an Interesting and a meaningful {formula} Story on {query} .".format(formula=formula,query=name),
+        prompt="{query}".format(query=name),
         temperature=0.8,
-        max_tokens=1220,
+        max_tokens=1920,
         top_p=1,
         frequency_penalty=0.5,
         presence_penalty=0,
@@ -105,16 +109,34 @@ def greet(name,formula,mode):
         print("-"*10)
         print(response['choices'][0]['text'])
         return response['choices'][0]['text']
-    elif mode == "CNN":
+    elif mode == "USEFUL":
         print(mode)
         response = openai.Completion.create(
         engine="text-davinci-001",
-        prompt="Write a Short {formula} Story on {query}.".format(formula=formula,query=name),
+        prompt="{query}".format(query=name),
         temperature=0.5,
         max_tokens=1220,
         top_p=1,
-        frequency_penalty=0.5,
-        presence_penalty=0.2,
+        frequency_penalty=0,
+        presence_penalty=0,
+        stop=[" Human:", " AI:"]
+        )
+        print("the query is ")
+        print(name,"----------------------------------------------------------------")
+        print("the reply is ")
+        print("-"*10)
+        print(response['choices'][0]['text'])
+        return response['choices'][0]['text']
+    elif mode == "SHORT":
+        print(mode)
+        response = openai.Completion.create(
+        engine="text-davinci-001",
+        prompt="{query}".format(query=name),
+        temperature=1,
+        max_tokens=100,
+        top_p=1,
+        frequency_penalty=0.3,
+        presence_penalty=0,
         stop=[" Human:", " AI:"]
         )
         print("the query is ")
@@ -302,12 +324,13 @@ data_load_state = st.subheader('Hello , Welcome to this Website Made By Vaibhav 
 
 genre = st.selectbox(
      "Select Features ",
-     ('Documentation', 'Chat','Story','Code',"Explain-code"))
+     ('Documentation', 'Chat','Writing','Code',"Explain-code"))
 
 
-if "Story" in genre:
-    data_load_state.subheader('Please type the topic of the story ↘️ , and select the genre by selecting  ">" on the top-left corner of the screen!')
-    title = st.text_area(label='Story Title',help="Press enter after the title!",placeholder="hello")
+if "Writing" in genre:
+    data_load_state.subheader('Please type the question for making the story / article / essay / advertisement / summary.')
+    title = st.text_area(label='Description',help="Press enter after the title!")
+    print(title)
 elif "Explain" in genre:
     data_load_state.subheader('🌄 You can type the code below and Inta will explain it for you! 🤖')
     createc = st.text_area(label='Code Description',help="Click Create Code after the Description!")
@@ -364,7 +387,7 @@ launchGradioFromSpaces("valhalla/glide-text2im", "#target")
 
 elif "Chat" in genre:
     data_load_state.subheader('🤖 Chat Mode Acitvated 🤖. You can type below to Chat!')
-    title = st.text_input(label='Query',help="Press enter after the Query!")
+    title = st.text_area(label='Query',help="Press enter after the Query!")
 elif "Documentation" in genre:
     st.markdown("<br>", unsafe_allow_html=True)
     data_load_state = st.markdown("""
@@ -375,9 +398,19 @@ elif "Documentation" in genre:
 	- Enter text and click "Apply/Submit"
 	- Voila, you will get output 📤
     --> ⛔ Do not **request more than 10 requests** to the website for now .
-- ### Citation
-     This Project is Made By Vaibhav Arora In Python and uses various System-Intensive Algorithms. \n
-     Contact  **vaibhavarduino@gmail.com** for More Info
+- ### Advanced Features
+    - Diversity Control refers to the quality . The sentences will be staightforward in less diversity whereas more diversity is ideal for generating new ideas.
+    - Response length refers to the output of chat mode in characters.
+    - lower answer probablitiy outputs determinative and repetitive sentences.
+    - "Best of choice" helps you choose to the best output among x-percent of sentences.
+- ### Remember
+    - Add this site to favourites ⭐ for more productivity
+    - A Laptop/PC is preferred for using this website.
+    - If you like our project , please like the website and share 🪒 it with your friends
+    - Issues or enhancement ideas can be submitted below.
+- ### Acknowledgements
+    - This project is made with 🧠 by Vaibhav Arora 
+    - I can be contacted @ vaibhavarduino@gmail.com 
     """)
 
 
@@ -388,16 +421,12 @@ with st.sidebar:
         "🎈 **NEW:** Ask Inta Directly About any Query with BERT Mode in Chat❗"
     )
     st.write("## Options")
-    if "Story" in genre:
-        optione = st.selectbox(
-        'Please Select the genre of the story',
-        ('Auto','Horror', 'Fantasy', 'Thriller','Mystery','Novel'))
-        print(optione,"<-- option selected by user")
+    if "Writing" in genre:
         option = st.selectbox(
         'Please Select the Mode',
-        ('Auto','BERT','CNN'))
-        st.subheader("Example Topic of story can be")
-        st.code("The Wise Man")
+        ('Auto','LONG','USEFUL','SENSE','SHORT'))
+        st.subheader("Example -")
+        st.write(value=random.choice(story))
     elif "Code"  in genre:
         level = st.select_slider('Coming Soon...',
         options=['Auto','AI'])
@@ -430,7 +459,13 @@ with st.sidebar:
         option = st.selectbox(
         'Please Select the Mode',
         ('Auto','BERT'))
-        st.caption("THe BERT Mode is preferred for longer tasks like Letter writing")
+        st.caption("The BERT Mode enables you to create your own personality! Eg- ")
+        st.code("""The following is a conversation 
+with thor.
+He is massive , angry and helpful .
+
+Human:How are you?
+Thor:""")
         st.subheader("Eg. Ask any query or Advice !")
     elif "Explain" in genre:
         level = st.select_slider('Select a Mode',
@@ -445,11 +480,11 @@ print(file_details[1])""")
     
 
 
-if "Story" in genre and st.button('Generate Story'):
+if "Writing" in genre and st.button('Generate'):
     use = m.get_data('token')
     m.update_data('token', use+1)
     m.save()
-    if use > 8 :
+    if use > 10 :
         my_bar = st.progress(0)
         close = st.button('An Error Occurred : GPU Has Fallen off the Bus (Max_Temperature_Reached)')
         title = st.text_input('Please Enter The Correction Code to Reinitialize Database', '***********')            
@@ -462,7 +497,7 @@ if "Story" in genre and st.button('Generate Story'):
         m.save()
 
     with st.spinner('Loading...') :
-        data2 = greet(title,optione,option)
+        data2 = greet(title,"None",option)
         st.markdown("##" + data2)
 
 
@@ -470,7 +505,7 @@ if "Chat" in genre and st.button('Ask'):
     use = m.get_data('token')
     m.update_data('token', use+1)
     m.save()
-    if use > 10:
+    if use > 15:
         my_bar = st.progress(0)
         close = st.button('An Error Occurred : GPU Has Fallen off the Bus (Max_Temperature_Reached)')
         title = st.text_input('Please Enter The Correction Code to Reinitialize Database', '***********')            
