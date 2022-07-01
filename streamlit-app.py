@@ -342,7 +342,7 @@ elif "Examples" in genre:
     m.save()  
     with st.spinner('Loading...') :
         
-        if m.get_data('over') % 3 == 0:
+        if m.get_data('over') % 134 == 0:
             data2 = greet(random.choice(blog),"None","Auto")
             che = st.markdown("##" + data2)
             m.update_data('data', data2)
