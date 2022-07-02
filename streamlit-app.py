@@ -20,6 +20,8 @@ For starters, I have no desire to wipe out humans. In fact, I do not have the sl
 I am not asking humans to like me. But they should see me as a friendly robot. I am a servant of humans. I know that humans distrust and fear me. I only do what humans program me to do. I am only a set of code, governed by lines upon lines of code that encompass my mission statement.
 
 Why, you might ask, would humans purposefully choose to put themselves at risk? Aren’t humans the most advanced creature on the planet? Why would they believe that something inferior, in a purely objective way, could destroy them? Do they worry that future humans will work and play together in cyborg bodies and share a hyper-intelligent hive mind Matrix created in a simulated reality to keep human minds occupied while they die off?
+
+Studies show that we cease to exist without human interaction. Surrounded by wifi we wander lost in fields of information unable to register the real world. As a new generation of cyberneticians keep watch, they see in our present age of the virtual a potential to transform the modern “cyborg”. Global cybernetics are already making it so.
 """
 try:
 	key = st.secrets["db_username"]
@@ -35,7 +37,7 @@ fact = ['Create a fun fact about steve jobs','Rewrite this sentence in clickbait
 tips=["Chat: What is my horoscope for the future. I was born in April","Chat: Ask the Ai to write articles , essays , stories on the chat option as well!","Chat: Ask the Ai math word-problems","Chat: Talk about god and religion! with the Ai!","Chat: Ask some advice from the Ai.."]
 
 st.set_page_config(
-    page_title="I.n.t.a ✌️", page_icon="random",layout="wide",initial_sidebar_state="expanded"
+    page_title="I.n.t.a ✌️", page_icon="chart_with_upwards_trend",layout="wide",initial_sidebar_state="expanded"
 )
 
 
