@@ -10,9 +10,11 @@ import sys
 import requests
 from memory.memory import Memory
 m = Memory()
-
-key = st.secrets["db_username"]
-openai.api_key = key
+try:
+	key = st.secrets["db_username"]
+	openai.api_key = key
+except:
+	openai.api_key = "a"
 
 MAGE_EMOJI_URL = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/twitter/259/mage_1f9d9.png"
 TOKEN = "5182224145:AAEjkSlPqV-Q3rH8A9X8HfCDYYEQ44v_qy0"
