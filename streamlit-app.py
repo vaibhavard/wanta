@@ -362,7 +362,7 @@ elif "Examples" in genre:
             m.save()  
         else:
             dat = m.get_data('data')
-            che = st.markdown("##" + dat + '\n' + article)
+            che = st.markdown("##" + ' ' +  dat + '\n' + article)
     if st.button("New"):
         with st.spinner('Loading...') :
             data2 = greet(random.choice(blog),"None","Auto")
