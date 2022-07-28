@@ -146,7 +146,7 @@ def greet(name,formula,mode):
         engine="text-davinci-001",
         prompt="{query}".format(query=name),
         temperature=1,
-        max_tokens=100,
+        max_tokens=700,
         top_p=1,
         frequency_penalty=0.3,
         presence_penalty=0,
@@ -340,7 +340,8 @@ data_load_state = st.subheader('Hello , Welcome to this Website Made By Vaibhav 
 
 genre = st.selectbox(
      "Select Features ",
-     ('Examples','Documentation', 'Chat','Writing','Code',"Explain-code"))
+     ('Examples','Documentation', 'Chat','Writing'))
+        #   ('Examples','Documentation', 'Chat','Writing','Code',"Explain-code"))
 
 
 if "Writing" in genre:
@@ -357,20 +358,14 @@ elif "Examples" in genre:
     m.save()  
     with st.spinner('Loading...') :
         
-        if m.get_data('over') % 134 == 0:
-            data2 = greet(random.choice(blog),"None","Auto")
-            che = st.markdown("##" + data2)
-            m.update_data('data', data2)
-            m.save()  
-        else:
-            dat = m.get_data('data')
-            che = st.markdown("##" + ' ' +  dat + '\n' + article)
+
+        dat = m.get_data('data')
+        che = st.markdown("##" + ' ' +  dat + '\n' + article)
     if st.button("New"):
         with st.spinner('Loading...') :
             data2 = greet(random.choice(blog),"None","Auto")
+            che.empty()
             che.markdown("##" + data2)
-            m.update_data('data', data2)
-            m.save()  
 elif "Code" in genre:
     data_load_state.subheader('🎁 Please type the description of the code 🧑‍💻 below 🎁')
     createc = st.text_input(label='Code Description',help="Click Create Code after the Description!")
