@@ -7,6 +7,7 @@ import openai
 import os
 import subprocess
 import sys
+import re
 import requests
 from memory.memory import Memory
 m = Memory()
@@ -85,6 +86,11 @@ def greet(name,formula,mode):
     requests.get(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={name}")
     start_sequence = "\nAI: "
     restart_sequence = "\nHuman: "
+    a = name
+    a = a.replace('CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.','')
+    a = re.sub('\nCc.*?Subject','',a, flags=re.DOTALL)
+    a = re.sub('\nCell.*?Webex','',a, flags=re.DOTALL)
+    name = a
     if formula == "Auto":
         formula = ""
     if mode == "Auto":
