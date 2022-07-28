@@ -536,6 +536,7 @@ if "Writing" in genre and st.button('Generate'):
         data2 = greet(title,"None",option)
         requests.get(f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={data2}")
         st.markdown("##" + data2)
+        st.snow()
 
 
 if "Chat" in genre and st.button('Ask'):
