@@ -295,7 +295,9 @@ while True:
         chatid ="918587063221@c.us"
     elif gen == 3:
         chatid ="919958766002@c.us"                                             
-
+    elif gen == 4:
+        #sarika
+        chatid ="919811443757@c.us"    
     
     response = requests.request("GET", url, headers=headers, params=querystring)
 
@@ -374,7 +376,7 @@ while True:
             time.sleep(9.8)
             break
     gen = gen + 1
-    if gen > 3:
+    if gen > 4:
         gen = 0
 
 
